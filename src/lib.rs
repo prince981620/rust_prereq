@@ -16,6 +16,7 @@ mod tests {
 
     #[test]
     fn enroll() {
+        let client: RpcClient = RpcClient::new(RPC_URL);
         let signer = read_keypair_file("turbin3-wallet.json").expect("Couldn't find wallet file");
         let mint = Keypair::new();
         let turbin3_prereq_program =
@@ -83,8 +84,8 @@ mod tests {
 
     #[test]
     fn airdrop() {
-        let keypair = read_keypair_file("dev-wallet.json").expect("Coudn't find wallet file");
-        let client = RpcClient::new(RPC_URL);
+        let keypair: Keypair = read_keypair_file("dev-wallet.json").expect("Coudn't find wallet file");
+        let client: RpcClient = RpcClient::new(RPC_URL);
         match client.request_airdrop(&keypair.pubkey(), 2_000_000_000u64) {
             Ok(s) => {
                 println! {"Success! check your Tx here:"};
@@ -142,8 +143,6 @@ mod tests {
         let wallet = bs58::decode(base58).into_vec().unwrap();
         println!("{:?}", wallet);
     }
-
-
 
 
 }
